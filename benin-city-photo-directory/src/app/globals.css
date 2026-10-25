@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+@theme {
+  /* ——— Palette inspirée du Bénin ——— */
+  --color-cream: #f6efdf;
+  --color-parchment: #efe5cd;
+  --color-sand: #e6d8b8;
+  --color-ink: #14231a;
+  --color-moss: #1f3325;
+  --color-benin: #0a7a46;
+  --color-foret: #0d5c37;
+  --color-gold: #f2b90d;
+  --color-soleil: #fcd116;
+  --color-flamme: #cf3a2a;
+  --color-terra: #b5651d;
+  --color-lagoon: #20776b;
+
+  /* ——— Typographies ——— */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* ——— Animations ——— */
+  --animate-marquee: marquee 46s linear infinite;
+  --animate-marquee-fast: marquee 30s linear infinite;
+  --animate-spin-slower: spin 16s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-soleil);
+  color: var(--color-ink);
+}
+
+/* ——— Barre de défilement ——— */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-moss);
+  border-radius: 8px;
+  border: 2px solid var(--color-cream);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-benin);
+}
+
+/* ——— Grain photographique ——— */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 90;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  animation: grain-shift 0.9s steps(4) infinite;
+}
+@keyframes grain-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1.5%);
+  }
+  50% {
+    transform: translate(1.5%, -1%);
+  }
+  75% {
+    transform: translate(-1%, -2%);
+  }
+  100% {
+    transform: translate(2%, 1%);
+  }
+}
+
+/* ——— Motif bogolan discret ——— */
+.motif-mud {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%2314231a' stroke-opacity='0.07' stroke-width='1.4'%3E%3Cpath d='M0 28h56M28 0v56'/%3E%3Ccircle cx='28' cy='28' r='9'/%3E%3Cpath d='M14 14l8 8M42 42l-8-8M42 14l-8 8M14 42l8-8'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.motif-zigzag-light {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24' viewBox='0 0 48 24'%3E%3Cpath d='M0 20 L12 6 L24 20 L36 6 L48 20' fill='none' stroke='%23f6efdf' stroke-opacity='0.14' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+/* ——— Masque de fondu pour les marquees ——— */
+.edge-fade {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+/* ——— Texte vertical ——— */
+.vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+/* ——— Soulignement pinceau ——— */
+.underline-swoosh {
+  background-image: linear-gradient(
+    100deg,
+    transparent 0%,
+    var(--color-soleil) 2%,
+    var(--color-soleil) 96%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 0.32em;
+  background-position: 0 88%;
+}
+
+/* ——— Champs de formulaire ——— */
+.field {
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1.5px solid color-mix(in srgb, var(--color-ink) 16%, transparent);
+  background: color-mix(in srgb, #ffffff 55%, var(--color-cream));
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  outline: none;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+.field::placeholder {
+  color: color-mix(in srgb, var(--color-ink) 40%, transparent);
+}
+.field:focus {
+  border-color: var(--color-benin);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-benin) 14%, transparent);
+}
+
+/* ——— Puce de filtre ——— */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in srgb, var(--color-ink) 18%, transparent);
+  padding: 0.5rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-ink);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+.chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-ink);
+}
+.chip[data-active="true"] {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  border-color: var(--color-ink);
+}
+
+/* ——— Carte photo : légende au survol ——— */
+.photo-card .card-veil {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.photo-card:hover .card-veil,
+.photo-card:focus-within .card-veil {
+  opacity: 1;
+}
+@media (hover: none) {
+  .photo-card .card-veil {
+    opacity: 1;
+  }
+}
+
+/* ——— Masonry ——— */
+.masonry {
+  column-gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  .masonry {
+    columns: 2;
+  }
+}
+@media (min-width: 1100px) {
+  .masonry {
+    columns: 3;
+  }
+}
+@media (min-width: 1500px) {
+  .masonry {
+    columns: 4;
+  }
+}
+.masonry > * {
+  break-inside: avoid;
+  margin-bottom: 1.25rem;
+}
+
+/* ——— Accessibilité : réduction des animations ——— */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
